@@ -1,2 +1,2 @@
-#!/bin/bash
-echo  $(env)  $(declare -F) $(declare -x)
+5 : #!/bin/bash
+set
