@@ -8,12 +8,12 @@ while [ $h -le 12 ]
 do
     if [ $m -eq 60 ]
     then
-    echo "hour : $h"
+    echo "hour: $h"
     h=$((h+1))
     m=0
     fi
     
     echo "$m"
     m=$((m+1))
-    
+
 done
