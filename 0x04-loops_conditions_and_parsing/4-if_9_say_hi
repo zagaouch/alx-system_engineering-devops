@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# A script to print a text ten times
+i=1
+while [ "$i" -le 9 ]
+do
+    if [ "$i" -eq 9 ]
+    then
+        echo "Hi"
+    fi
+    echo "Best School"
+    i=$((i + 1))
+done
