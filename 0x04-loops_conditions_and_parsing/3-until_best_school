@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# A script to print a text ten times
+i=1
+until [ "$i" -gt 10 ] 
+do
+    echo "Best School"
+    i=$((i + 1))
+done
