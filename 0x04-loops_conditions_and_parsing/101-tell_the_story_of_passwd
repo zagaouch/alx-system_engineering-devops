@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Check if the /etc/passwd file exists
+if [ ! -f /etc/passwd ]; then
+    echo "Error: /etc/passwd file does not exist."
+    exit 1
+fi
+
+# Use a while loop to read and display information
+while IFS=: read -r username _ _ _ info home shell; do
+    # Extract user information from the GECOS field (info)
+    IFS=',' read -r -a info_parts <<< "$info"
+    full_name="${info_parts[0]}"
+    group="${info_parts[3]}"
+    passcode="${info_parts[4]}"
+    
+    echo "The user $username is part of the $group gang, lives in $home and rides $shell."
+    echo "USER ID's place is protected by the passcode $passcode, more info about the user here: $full_name"
+done < /etc/passwd
