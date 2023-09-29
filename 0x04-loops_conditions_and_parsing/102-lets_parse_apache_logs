@@ -6,4 +6,4 @@ if [ ! -f "apache-access.log" ]; then
 fi
 
 # Use awk to extract and display IP and HTTP status code
-awk '{print $1, $9}' "apache-access.log"
+awk '{print $1, $9}' "apache-access.log" | sed 's/\"//g'
