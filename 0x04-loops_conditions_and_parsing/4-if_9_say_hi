@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # A script to print a text ten times
 i=1
-while [ "$i" -le 9 ]
+while [ "$i" -le 10 ]
 do
-    if [ "$i" -eq 9 ]
+    if [ "$i" -eq 10 ]
     then
         echo "Hi"
     fi
