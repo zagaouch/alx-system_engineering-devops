@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#stop the last script
+kill 161582
