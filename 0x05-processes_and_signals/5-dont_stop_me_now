@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
-#stop the last script
-kill 161582
+# Replace 'your_pid' with the actual PID of the '4-to_infinity_and_beyond' process
+pid_to_kill=161582
+
+# Check if the process exists before attempting to kill it
+if ps -p "$pid_to_kill" > /dev/null; then
+    echo "Stopping 4-to_infinity_and_beyond process with PID: $pid_to_kill"
+    kill "$pid_to_kill"
+else
+    exit
+fi
