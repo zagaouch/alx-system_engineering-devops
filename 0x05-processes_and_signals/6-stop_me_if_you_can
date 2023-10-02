@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Check if the '4-to_infinity_and_beyond' process is running
+pgrep -f "4-to_infinity_and_beyond" > /dev/null
+pkill -SIGTERM -f "4-to_infinity_and_beyond"
