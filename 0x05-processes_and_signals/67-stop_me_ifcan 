@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Check if the '4-to_infinity_and_beyond' process is running
+pgrep -f "7-highlander" > /dev/null
+pkill -SIGTERM -f "7-highlander"
