@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Function to handle the SIGTERM and SIGQUIT signals
 handle_sigterm_sigquit() {
     echo "I hate the kill command"
