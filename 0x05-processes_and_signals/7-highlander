@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Function to handle the SIGTERM signal
 handle_sigterm() {
-    echo "I am invincible!!!"
+    echo "Killed"
     exit 0
 }
 # Trap the SIGTERM signal and call the handle_sigterm function
