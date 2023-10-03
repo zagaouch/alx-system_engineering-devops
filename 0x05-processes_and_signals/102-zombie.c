@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
+
 /**
-* main - creat zoombis
-*/
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
 int main(void)
 {
 	pid_t parent_pid = getpid();
@@ -16,7 +19,8 @@ int main(void)
 		child_pid = fork();
 		if (child_pid < 0)
 		{
-			perror("fork");exit(EXIT_FAILURE);
+			perror("fork");
+			exit(EXIT_FAILURE);
 		}
 		if (child_pid == 0)
 		{
@@ -25,6 +29,6 @@ int main(void)
 		}
 	}
 	sleep(10);
-	return 0;
+	return (0);
 }
 
