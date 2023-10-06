@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# That show IPs
+#!/bin/bash
+ifconfig | grep -Eo 'inet [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | awk '{print $2}'
