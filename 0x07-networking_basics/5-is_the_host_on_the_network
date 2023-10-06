@@ -2,7 +2,7 @@
 # That only ping adress
 if [ "$#" -eq 1 ]
 then
-    ping $1
+    ping "$1"
 else
     echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
 fi
