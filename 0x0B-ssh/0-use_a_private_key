@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 #This script is used to connect to our server
 
-ssh -i ~/.ssh/school ubuntu@34.201.164.51
+ssh -i ~/.ssh/school ubuntu@18.234.192.165
