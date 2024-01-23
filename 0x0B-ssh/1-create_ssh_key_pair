@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#This script is used to generate a ssh key pair 
+
+ssh-keygen -f school -t rsa -b 4096 -N betty
