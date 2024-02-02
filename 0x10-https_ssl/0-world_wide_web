@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#Bash script that will display information about subdomains.
+if [ -z "$2" ]
+  then
+    SUBDOM=("www" "lb-01" "web-01" "web-02")
+  else
+    SUBDOM=("$2")
+fi
+for sdom in "${SUBDOM[@]}"
+do
+    dig "$sdom"."$1" | grep -A1 'ANSWER SECTION:' | tail -n1 > aux
+    awk -v sdom="$sdom" '{print "The subdomain " sdom " is a " $4 " record and points to " $5}' aux
+    rm -r aux
+done
