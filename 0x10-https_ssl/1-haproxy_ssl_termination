@@ -47,5 +47,5 @@ frontend codezag-frontend-https
 
 backend codezag-backend
         balance roundrobin
-        server 383181-web-01 54.236.12.67:80 check
+        server 383181-web-01 3.90.81.246:80 check
         server 383181-web-02 54.90.47.94:80 check

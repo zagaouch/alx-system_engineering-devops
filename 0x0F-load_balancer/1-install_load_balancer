@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #Install your load balancer
 sudo apt update
-sudo apt-get install -y haproxy
+#sudo apt-get install -y haproxy
 echo "listen 383181-lb-01" | sudo tee -a /etc/haproxy/haproxy.cfg
 echo "bind *:80" | sudo tee -a /etc/haproxy/haproxy.cfg
 echo "balance roundrobin" | sudo tee -a /etc/haproxy/haproxy.cfg
