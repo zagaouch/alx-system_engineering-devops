@@ -1,34 +1,43 @@
 #!/usr/bin/python3
-""" get request """
-import json
+"""Given an Employee ID, returns information
+about his/her TODO list progress.
+"""
 import requests
-import sys
+from sys import argv
 
-def retrieve_todo_list_progress(emp_id):
-    """ returns todolist progress given employee id"""
-    todo_url = "https://jsonplaceholder.typicode.com"
-    emp_url = f"{todo_url}/todos?userId={emp_id}"
-    user_url = f"{todo_url}/users/{emp_id}"
+if __name__ == '__main__':
     try:
-        user_info = requests.get(user_url).json()
-        user_name = user_info.get('name')
+        emp_id = int(argv[1])
+    except ValueError:
+        exit()
 
-        todo_list = requests.get(emp_url).json()
-        todo_size = len(todo_list)
+    api_url = 'https://jsonplaceholder.typicode.com'
+    user_uri = '{api}/users/{id}'.format(api=api_url, id=emp_id)
+    todo_uri = '{user_uri}/todos'.format(user_uri=user_uri)
 
-        tasks_completed = []
-        for todo in todo_list:
-            if todo.get('completed') is True:
-                tasks_completed.append(todo.get('title'))
+    # User Response
+    res = requests.get(user_uri).json()
 
-        print("Employee {} is done with tasks({}/{}".format(
-            user_name, len(tasks_completed), len(todo_list)))
-        for todo in tasks_completed:
-            print("\t {}".format(todo))
-    except requests.exceptions.RequestException as int_rrror:
-        sys.exit(1)
+    # Name of the employee
+    name = res.get('name')
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.exit(1)
-    retrieve_todo_list_progress(int(sys.argv[1]))
+    # User TODO Response
+    res = requests.get(todo_uri).json()
+
+    # Total number of tasks, the sum of completed and non-completed tasks
+    total = len(res)
+
+    # Number of non-completed tasks
+    non_completed = sum([elem['completed'] is False for elem in res])
+
+    # Number of completed tasks
+    completed = total - non_completed
+
+    # Formatting the expected output
+    str = "Employee {emp_name} is done with tasks({completed}/{total}):"
+    print(str.format(emp_name=name, completed=completed, total=total))
+
+    # Printing completed tasks
+    for elem in res:
+        if elem.get('completed') is True:
+            print('\t', elem.get('title'))
