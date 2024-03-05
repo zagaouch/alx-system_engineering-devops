@@ -1,31 +1,35 @@
 #!/usr/bin/python3
-"""Contains recurse function"""
+"""Query reddit api top ten- posts titles for a subredit recursively"""
+
 import requests
+from os import sys
+
+subredit = sys.argv[1]
 
 
-def recurse(subreddit, hot_list=[], after="", count=0):
-    """Returns a list of titles of all hot posts on a given subreddit."""
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
-    headers = {
-        "User-Agent": "0x16-api_advanced:project:\
-v1.0.0 (by /u/firdaus_cartoon_jr)"
-    }
-    params = {
-        "after": after,
-        "count": count,
-        "limit": 100
-    }
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-    if response.status_code == 404:
+def recurse(subreddit, hot_list=[], after=None):
+    """Get top allhot posts titles for a given subreddit recursively"""
+    if subreddit is None or not isinstance(subreddit, str):
         return None
+    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    if after:
+        url += '?after={}'.format(after)
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    params = {'limit': 100,
+              after: after}
+    try:
+        response = requests.get(url, headers=headers,
+                                params=params,
+                                allow_redirects=False)
 
-    results = response.json().get("data")
-    after = results.get("after")
-    count += results.get("dist")
-    for c in results.get("children"):
-        hot_list.append(c.get("data").get("title"))
-
-    if after is not None:
-        return recurse(subreddit, hot_list, after, count)
-    return hot_list
+        if response.status_code != 200:
+            return None
+        data = response.json().get('data')
+        hot_list.extend([post.get('data').get('title')
+                        for post in data.get('children')])
+        after = data.get('after')
+        if after is not None:
+            return recurse(subreddit, hot_list, after)
+        return hot_list
+    except Exception:
+        return None
