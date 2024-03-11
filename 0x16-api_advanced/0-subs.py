@@ -6,18 +6,22 @@ import requests
 from sys import argv
 
 
-def number_of_subscribers(subreddit):
-    '''
-        returns the number of subscribers for a given subreddit
-    '''
-    user = {'User-Agent': 'Mozilla/5.0'}
-    url = requests.get('https://www.reddit.com/r/{}/about.json'
-                       .format(subreddit), headers=user).json()
-    try:
-        return url.get('data').get('subscribers')
-    except Exception:
-        return 0
+def top_ten(subreddit):
+    """
+    Function that queries the Reddit API
+    - If not a valid subreddit,
+    print None.
+    """
+    req = requests.get(
+        "https://www.reddit.com/r/{}/hot.json".format(subreddit),
+        headers={"User-Agent": "Custom"},
+        params={"limit": 10},
+    )
 
-
-if __name__ == "__main__":
-    number_of_subscribers(argv[1])
+    if req.status_code == 200:
+        for get_data in req.json().get("data").get("children"):
+            dat = get_data.get("data")
+            title = dat.get("title")
+            print(title)
+    else:
+        print(None)
